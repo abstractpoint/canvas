@@ -14,7 +14,7 @@ const renderScene = () => {
 		context,
 		canvas.width,
 		canvas.height,
-		7,
+		14,
 		particles,
 	)
 		.then((newParticles) => { particles = [...newParticles]; })
@@ -22,7 +22,7 @@ const renderScene = () => {
 			context,
 			canvas.width,
 			canvas.height,
-			7,
+			14,
 			segments,
 		))
 		.then((newSegments) => { segments = [...newSegments]; })

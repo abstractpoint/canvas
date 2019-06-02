@@ -122,10 +122,10 @@ export const renderBuild = (
 			coords = [
 				0,
 				0,
-				20,
+				0,
 				x2,
 				y2,
-				20 + z2,
+				z2,
 			];
 		}
 		segments.push(coords);
@@ -135,7 +135,7 @@ export const renderBuild = (
 
 	setTimeout(() => {
 		timeElapsed = true;
-		resolve(segments.slice(-2000));
+		resolve(segments.slice(-4000));
 	}, duration * 1000);
 
 	function update() {
