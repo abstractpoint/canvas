@@ -6,10 +6,15 @@
   "dependencies": {
     "parcel": "^1.12.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel src/index.html"
+    "dev": "parcel src/index.html",
+    "lint": "eslint src"
   },
   "author": "",
   "license": "ISC"
