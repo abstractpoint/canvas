@@ -90,19 +90,15 @@ export const renderBuild = (
 			y2 = 100;
 			break;
 		case 3:
-			x2 = 100;
-			z2 = 100;
+			x2 = -100;
 			break;
 		case 4:
 			x2 = 100;
-			z2 = -100;
 			break;
 		case 5:
-			x2 = -100;
 			z2 = -100;
 			break;
 		case 6:
-			x2 = -100;
 			z2 = 100;
 			break;
 		default:

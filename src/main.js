@@ -1,6 +1,7 @@
 /* eslint-env browser */
 import { renderBuild, renderFlight } from './scenes';
 import { doNothing } from './utils';
+import dust from './dust';
 
 const renderScene = () => {
 	const canvas = document.getElementById('canvas');
@@ -13,24 +14,7 @@ const renderScene = () => {
 
 	const duration = 2; // seconds
 	let segments;
-	const loop = () => renderFlight(
-		context,
-		canvas.width,
-		canvas.height,
-		duration,
-	)
-		.then(() => renderBuild(
-			context,
-			canvas.width,
-			canvas.height,
-			5,
-			segments,
-		))
-		.then(doNothing(2))
-		.then((newSegments) => { segments = [...newSegments]; })
-		.then(loop);
-
-	loop();
+	dust(context, canvas.width, canvas.height);
 };
 
 window.onload = () => {

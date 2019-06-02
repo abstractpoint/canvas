@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
+    "fast-simplex-noise": "^3.2.1",
     "parcel": "^1.12.3"
   },
   "devDependencies": {
