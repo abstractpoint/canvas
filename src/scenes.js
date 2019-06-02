@@ -10,10 +10,10 @@ export const renderFlight = (
 	width,
 	height,
 	duration = 5,
+	particles,
 ) => new Promise((resolve) => {
-	const buffer = makeCircularBuffer(1000);
+	const buffer = makeCircularBuffer(1000, particles);
 	const lines = buffer.read();
-
 	function drawLine(x, y, fromZ, toZ) {
 		context.moveTo(...scaleToF([x, y, fromZ]));
 		context.lineTo(...scaleToF([x, y, toZ]));
@@ -34,7 +34,7 @@ export const renderFlight = (
 
 	setTimeout(() => {
 		timeElapsed = true;
-		resolve(buffer);
+		resolve(lines);
 	}, duration * 1000);
 
 	function update() {
@@ -114,9 +114,9 @@ export const renderBuild = (
 				previousSegment[3],
 				previousSegment[4],
 				previousSegment[5],
-				previousSegment[3] + x2,
-				previousSegment[4] + y2,
-				(previousSegment[5] + z2) > 9 ? previousSegment[5] + z2 : 0,
+				(previousSegment[3] + x2) * 0.99,
+				(previousSegment[4] + y2) * 0.99,
+				(previousSegment[5] + z2) > 9 ? (previousSegment[5] + z2) * 0.99 : 0,
 			];
 		} else {
 			coords = [
@@ -135,13 +135,19 @@ export const renderBuild = (
 
 	setTimeout(() => {
 		timeElapsed = true;
-		resolve(segments);
+		resolve(segments.slice(-2000));
 	}, duration * 1000);
 
 	function update() {
 		context.clearRect(-width / 2, -height / 2, width, height);
 
 		context.beginPath();
+
+		// increment z axis
+		segments.forEach((seg, i) => {
+			segments[i][2] += 0.2; // eslint-disable-line
+			segments[i][5] += 0.2; // eslint-disable-line
+		});
 
 		makeSegment();
 		segments.forEach((item) => {

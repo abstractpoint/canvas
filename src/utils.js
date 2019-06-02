@@ -10,8 +10,11 @@ export const scaleToF = ([x, y, z]) => {
 	return [x * multiplier, y * multiplier];
 };
 
-export const makeCircularBuffer = (size) => {
+export const makeCircularBuffer = (size, initial = []) => {
 	const buffer = Array(size).fill(true);
+	initial.forEach((item, i) => {
+		buffer[i] = item;
+	});
 	let position = 0;
 
 	return {
