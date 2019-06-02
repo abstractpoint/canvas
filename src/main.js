@@ -12,7 +12,7 @@ const renderScene = () => {
 	context.translate(canvas.width / 2, canvas.height / 2);
 
 	const duration = 2; // seconds
-
+	let segments;
 	const loop = () => renderFlight(
 		context,
 		canvas.width,
@@ -23,9 +23,11 @@ const renderScene = () => {
 			context,
 			canvas.width,
 			canvas.height,
-			duration,
+			5,
+			segments,
 		))
 		.then(doNothing(2))
+		.then((newSegments) => { segments = [...newSegments]; })
 		.then(loop);
 
 	loop();

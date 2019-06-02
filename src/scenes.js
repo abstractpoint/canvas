@@ -67,22 +67,68 @@ export const renderBuild = (
 	width,
 	height,
 	duration = 5,
+	segments = [],
 ) => new Promise((resolve) => {
-	const segments = [];
-
-	function drawLine(x, y, x2, y2) {
-		context.moveTo(...scaleToF([x, y, 20]));
-		context.lineTo(...scaleToF([x2, y2, 20]));
+	function drawLine(x, y, z, x2, y2, z2) {
+		context.moveTo(...scaleToF([x, y, z]));
+		context.lineTo(...scaleToF([x2, y2, z2]));
 	}
 
 	function makeSegment() {
 		// x, y, length, z
-		segments.push([
-			randomRange(-width / 2, width / 2),
-			randomRange(-width / 2, width / 2),
-			randomRange(-width / 2, width / 2),
-			randomRange(-width / 2, width / 2),
-		]);
+		const previousSegment = segments.slice(-1)[0];
+		let coords;
+		let x2 = 0;
+		let y2 = 0;
+		let z2 = 0;
+		const randomDirection = Math.floor(randomRange(1, 7));
+		switch (randomDirection) {
+		case 1:
+			y2 = -100;
+			break;
+		case 2:
+			y2 = 100;
+			break;
+		case 3:
+			x2 = 100;
+			z2 = 100;
+			break;
+		case 4:
+			x2 = 100;
+			z2 = -100;
+			break;
+		case 5:
+			x2 = -100;
+			z2 = -100;
+			break;
+		case 6:
+			x2 = -100;
+			z2 = 100;
+			break;
+		default:
+			// nothing
+		}
+
+		if (segments.length > 0) {
+			coords = [
+				previousSegment[3],
+				previousSegment[4],
+				previousSegment[5],
+				previousSegment[3] + x2,
+				previousSegment[4] + y2,
+				(previousSegment[5] + z2) > 9 ? previousSegment[5] + z2 : 0,
+			];
+		} else {
+			coords = [
+				0,
+				0,
+				20,
+				x2,
+				y2,
+				20 + z2,
+			];
+		}
+		segments.push(coords);
 	}
 
 	let timeElapsed = false;
@@ -104,6 +150,8 @@ export const renderBuild = (
 				item[1],
 				item[2],
 				item[3],
+				item[4],
+				item[5],
 			);
 		});
 
