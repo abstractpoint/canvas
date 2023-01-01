@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "parcel": "^1.12.3"
+    "parcel": "^2.8.2"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
